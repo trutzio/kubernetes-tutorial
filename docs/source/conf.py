@@ -33,3 +33,6 @@ html_theme = 'sphinx_rtd_theme'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'
+
+# https://docs.readthedocs.com/platform/stable/config-file/v2.html#formats
+formats = 'all'
