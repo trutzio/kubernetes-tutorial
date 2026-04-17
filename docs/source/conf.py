@@ -30,7 +30,3 @@ templates_path = ['_templates']
 # -- Options for HTML output
 
 html_theme = 'sphinx_rtd_theme'
-
-
-# https://docs.readthedocs.com/platform/stable/config-file/v2.html#formats
-formats = 'all'
