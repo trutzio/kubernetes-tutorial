@@ -2,9 +2,9 @@
 
 # -- Project information
 
-project = 'Lumache'
-copyright = '2021, Graziella'
-author = 'Graziella'
+project = 'Kubernetes Tutorial'
+copyright = '2026, Trutz Software Consulting GmbH'
+author = 'Christian Trutz'
 
 release = '0.1'
 version = '0.1.0'
