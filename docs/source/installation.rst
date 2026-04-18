@@ -28,9 +28,14 @@ Installation unter Windows (Powershell):
 .. code-block:: console
 
    $ curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.31.0/kind-windows-amd64
-   $ Move-Item .\kind-windows-amd64.exe c:\some-dir-in-your-PATH\kind.exe
+   $ Move-Item .\\kind-windows-amd64.exe C:\\some-dir-in-your-PATH\\kind.exe
 
 .. seealso::
 
    Weitetere Möglichkeiten zur Installation von `kind`_ findet ihr in der offiziellen `Installationsdokumentation <https://kind.sigs.k8s.io/docs/user/quick-start/#installation>`_.
 
+Die Erstellung eines Kubernetes-Clusters mit `kind`_ ist sehr einfach:
+
+.. code-block:: console
+
+   $ kind create cluster
