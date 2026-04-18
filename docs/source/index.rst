@@ -1,22 +1,11 @@
-Welcome to Lumache's documentation!
+Willkommen zum Kubernetes Tutorial!
 ===================================
 
-**Lumache** (/lu'make/) is a Python library for cooks and food lovers
-that creates recipes mixing random ingredients.
-It pulls data from the `Open Food Facts database <https://world.openfoodfacts.org/>`_
-and offers a *simple* and *intuitive* API.
+**Kubernetes** ist eine Open-Source-Software zur Orchestrierung von containerisierten Anwendungen. Es wurde ursprünglich von Google entwickelt und wird jetzt von der Cloud Native Computing Foundation (CNCF) betreut. Dieses Tutorial behandelt die Grundlagen von Kubernetes geht aber auch punktuell die Tiefe. Es handelt sich um ein Tutorial im Sinne von `Diátaxis <https://diataxis.fr/tutorials/>`_.
 
-Check out the :doc:`usage` section for further information, including
-how to :ref:`installation` the project.
-
-.. note::
-
-   This project is under active development.
-
-Contents
---------
+Inhalt
+------
 
 .. toctree::
 
-   usage
-   api
+   installation
