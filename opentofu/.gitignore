@@ -1,0 +1,6 @@
+/schulung
+/schulung.pub
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
