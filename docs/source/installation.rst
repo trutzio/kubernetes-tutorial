@@ -40,7 +40,7 @@ Die Erstellung eines Kubernetes-Clusters mit `kind`_ ist sehr einfach:
 
    $ kind create cluster
 
-.. note::
+.. error::
 
    Falls der der obige Befehl fehlschlägt, könnte es daran liegen, dass Docker nicht installiert oder nicht gestartet ist. `kind`_ benötigt Docker, um die Container zu erstellen, in denen die Kubernetes-Nodes laufen.
 
@@ -56,7 +56,7 @@ Mit dem Befehl Befehl:
          
 können die verfügbaren Kubernetes-Kontexte aufgelistet werden, die in der `~/.kube/config` gespeichert sind. In diesem Fall gibt es nur einen Kontext namens `kind-kind`, der automatisch von `kind`_ erstellt wurde. Dieser Kontext enthält die Informationen, die benötigt werden, um mit dem `kind`_-Cluster zu kommunizieren.
 
-Mit dem folgenden Befehl kann mann die Nodes des Clusters auflisten:
+Mit dem folgenden Befehl kann man die Nodes des Clusters auflisten:
 
 .. code-block:: console
 
@@ -101,3 +101,38 @@ Mit dem folgenden Befehl kannst du die Nodes des Clusters auflisten:
    $ kubectl get nodes
    NAME                STATUS   ROLES           AGE   VERSION
    debian-4gb-nbg1-1   Ready    control-plane   18s   v1.34.6+k3s1
+
+Ziel dieser k3s Installation
+----------------------------
+
+.. image:: img/kubernetes-ha-installation.svg
+   :align: center
+   :alt: Kubernetes HA Installation
+
+Cluster mit n Nodes
+-------------------
+
+HA-Cluster
+----------
+
+HA-Cluster mit Load-Balancer
+----------------------------
+
+Load-Balancer Konfiguration:
+
+.. code-block:: console
+
+   frontend healthz
+      bind :80
+      mode http
+      monitor-uri /healthz
+
+   frontend k3s-frontend
+      bind :6443
+      default_backend k3s-backend
+
+   backend k3s-backend
+      balance roundrobin
+      server k3s-single-control-plane [ip master-0]:6443 check
+      server k3s-single-control-plane [ip master-1]:6443 check
+      server k3s-single-control-plane [ip master-2]:6443 check
