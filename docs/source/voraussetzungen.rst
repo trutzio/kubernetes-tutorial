@@ -18,3 +18,17 @@ Folgende Software wird für die Durchführung dieses Tutorials benötigt:
 #. `ssh-keygen` zum Erstellen von SSH-Schlüsseln, erzeuge einen SSH Key mit `ssh-keygen -t ed25519 -f schulung` und lade den Public-Anteil des Keys `schulung.pub` bei Hetzner unter "Security > SSH keys" hoch
 #. `opentofu`_ zum Bereitstellen von Infrastruktur in der Hetzner Cloud
 #. Umgebungsvariable `TF_VAR_hcloud_token_schulungen` enthält den Hetzner API Token
+
+Linux
+-----
+
+#. Umgang mit `ssh`, `ssh-agent`, `ssh-add`, `ssh-keygen`, `sudo`, `su`, `bash`
+#. Umgang mit `systemctl` zum Verwalten von Diensten
+#. Umgang mit `apt` zum Installieren von Software
+
+
+Visual Studio Code
+------------------
+
+#. Installation auf dem lokalen Rechner
+#. Installation der Erweiterung "Database Client JDBC" mit der Id `cweijan.dbclient-jdbc`

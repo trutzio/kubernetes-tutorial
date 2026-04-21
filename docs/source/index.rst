@@ -13,4 +13,5 @@ Inhalt
 .. toctree::
 
    voraussetzungen
+   docker
    installation
