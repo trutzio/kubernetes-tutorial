@@ -33,6 +33,7 @@ resource "hcloud_server" "student" {
       "apt update",
       "apt upgrade -y",
       "apt install -y git",
+      "git clone https://github.com/trutzio/kubernetes-tutorial.git"
     ]
     connection {
       type        = "ssh"
