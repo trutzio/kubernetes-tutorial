@@ -1,31 +1,31 @@
 Voraussetzungen
 ===============
 
+.. _Hetzner: https://www.hetzner.com/
+
 Linux
 -----
 
-#. Debian 13 Server zum Beispiel bei Hetzner mit `apt update && apt upgrade`, Verbindung zum Server über einen SSH-Key mit dem Namen `schulung`
-#. Umgang mit `ssh`, `ssh-agent`, `ssh-add`, `ssh-keygen`, `sudo`, `su`, `bash`
-#. Umgang mit `systemctl` zum Verwalten von Diensten
-#. Umgang mit `apt` zum Installieren von Software
+#. Debian 13 Server zum Beispiel bei `Hetzner`_
+#. Verbindung zum Debian Server via SSH-Key mit Namen `schulung`
+#. Kenntnisse in `ssh`, `ssh-agent`, `ssh-add`, `ssh-keygen`, `sudo`, `su`
+#. Kenntnisse in `systemctl` zum Verwalten von Diensten unter Debian
+#. Kenntnisse in `apt` zum Installieren von Software unter Debian
+#. Kenntnisse in `bash`
 
 Visual Studio Code
 ------------------
 
 #. Installation auf dem lokalen Rechner https://code.visualstudio.com/download
-#. Installation der Erweiterung "Database Client JDBC" mit der Id `cweijan.dbclient-jdbc` inkl. SSH Verbindung zum Debian 13 Server (Hetzner)
+#. Installation der Erweiterung "Database Client JDBC" mit der Id `cweijan.vscode-mysql-client2` inkl. SSH Verbindung zum Debian 13 Server (Hetzner) mit dem SSH-Key `schulung`
 
 Git
 ---
 
-#. Installation von Git mit `apt install git` auf dem Debian 13 Server (Hetzner)
-#. Umgang mit `git clone`
+#. Umgang mit `git`
+#. In den VMs der Schulung ist Git bereits installiert, und das Git Repository https://github.com/trutzio/kubernetes-tutorial gecloned
 
 Docker
 ------
 
 #. Kostenloser Docker Account (wird für die Verwendung von Docker Scout benötigt), siehe dazu auch https://docs.docker.com/accounts/create-account/
-
-
-
-

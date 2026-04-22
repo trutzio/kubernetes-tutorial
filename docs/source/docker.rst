@@ -1,33 +1,35 @@
 Docker
 ======
 
-In diesem Abschnitt werden die Grundlagen von Docker behandelt, die in diesem Tutorial verwendet werden. Diese Grundlagen sind wichtig, um die Konzepte von Kubernetes zu verstehen, sie sind aber auch in DevOps-Alltag fast unverzichtbar.
+In diesem Abschnitt werden die Grundlagen von Docker behandelt. Diese sind wichtig, um die Konzepte von Kubernetes zu verstehen, sie sind aber auch im DevOps-Alltag unverzichtbar geworden.
 
 Installation
 ------------
 
-Die Installation von Docker ist abhängig vom Betriebsystem, unter Linux Debian 13 ist die Installation mit folgenden Befehlen möglich:
+Die Installation von Docker ist abhängig vom Betriebsystem, unter Linux Debian 13:
 
 .. code-block:: bash
 
-   $ sudo apt update
-   $ sudo apt install docker.io docker-cli docker-buildx docker-compose docker-doc
-   $ sudo systemctl status docker
+   $ apt install docker.io docker-cli docker-buildx docker-compose docker-doc
+   $ systemctl status docker
 
 .. tip::
 
-    Mit `sudo systemctl stop docker` wird der Docker-Dienst gestoppt, aber er wird automatisch erneut gestartet, wenn ein Docker-Befehl ausgeführt wird. Der Trigger ist der Zugriff auf der Unix-Socket `/var/run/docker.sock` befindet. Ein normaler Linux-Benutzer hat standardmässig keine Berechtigung, auf diesen Unix-Socket zuzugreifen, und muss zur `docker`-Gruppe hinzugefügt werden, um ohne `sudo` auf Docker zugreifen zu können.
+    Mit `systemctl stop docker` wird der Docker-Dienst gestoppt, aber er wird automatisch erneut gestartet, wenn ein Docker-Befehl ausgeführt wird. Der Trigger ist der Zugriff auf den Unix-Socket `/var/run/docker.sock`. Ein normaler Linux-Benutzer hat standardmässig keine Berechtigung, auf diesen Unix-Socket zuzugreifen, und muss zur `docker`-Gruppe hinzugefügt werden, um ohne `sudo` auf Docker zugreifen zu können.
 
 Mit folgenden Befehlen wird ein normaler Benutzer angelegt und zur `docker`-Gruppe hinzugefügt. Dieser Benutzer kann dann ohne `sudo` auf Docker zugreifen.
 
 .. code-block:: bash
 
-    $ sudo useradd --create-home --user-group --shell /bin/bash chris
-    $ sudo usermod -aG docker chris
+    $ useradd --create-home --user-group --shell /bin/bash chris
+    $ usermod -aG docker chris
     $ su - chris
     $ groups
     $ docker version
-    $ docker run hello-world
+    $ docker container run hello-world
+    $ docker container ls -a
+    $ exit
+    $ deluser --remove-home chris
 
 Docker Context
 --------------
@@ -48,12 +50,16 @@ Man kann von einem anderen Rechner auf den oben erstellten Docker-Host wie folgt
 
 .. code-block:: bash
 
-   $ ssh-add /path/to/private/ssh/key/schulung
-   $ docker context create test --description "Test Docker Context" --docker "host=ssh://root@[ip-address]"
-   $ docker context use test
-   $ docker version
-
-Der `docker context create`-Befehl erstellt einen neuen Docker Context mit dem Namen `test`, der die Verbindung zu einem Remote-Docker-Host über SSH herstellt. Der `docker context use test`-Befehl wechselt zum neu erstellten Context, und `docker version` zeigt die Docker-Version des Remote-Docker-Hosts an.
+    $ eval "$(ssh-agent -s)"
+    $ # kopiere den SSH-Key schulung und schulung.pub auf den Remote-Docker-Host
+    $ chmod go-r schulung
+    $ ssh-add schulung
+    $ ssh root@[ip-address]
+    $ docker context create test --docker "host=ssh://root@[ip-address]"
+    $ docker context use test
+    $ docker version
+    $ docker context use default
+    $ docker context rm test
 
 .. tip::
 
@@ -68,22 +74,9 @@ Unter Windows muss möglicherweise der SSH-Agent manuell gestartet werden, damit
 
 Siehe auch https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
 
-Unter Linux muss der SSH-Agent mit dem folgenden Befehlen gestartet werden, bevor `ssh-add` ausgeführt wird:
-
-.. code-block:: bash
-
-    $ eval "$(ssh-agent -s)"
-
 .. tip::
 
     Mit `ssh-add -L` kann überprüft werden, welche SSH-Schlüssel derzeit vom SSH-Agenten verwaltet werden. Mit `ssh-add -D` können alle Schlüssel aus dem SSH-Agenten entfernt werden.
-
-Wechsle manuell zurück zum `default` Docker Context, um wieder auf die lokale Docker-Engine zuzugreifen und entferne den `test` Docker Context, da er jetzt nicht mehr benötigt wird:
-
-.. code-block:: bash
-
-    $ docker context use default
-    $ docker context rm test
 
 Docker Architektur
 ------------------
