@@ -20,7 +20,7 @@ Installation unter Linux:
 
    $ curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.31.0/kind-linux-amd64
    $ chmod +x ./kind
-   $ sudo mv ./kind /usr/local/bin/
+   $ mv ./kind /usr/local/bin/
 
 Installation unter Windows (Powershell):
 
@@ -44,6 +44,8 @@ Die Erstellung eines Kubernetes-Clusters mit `kind`_ ist sehr einfach:
    Falls der der obige Befehl fehlschlägt, könnte es daran liegen, dass Docker nicht installiert oder nicht gestartet ist. `kind`_ benötigt Docker, um die Container zu erstellen, in denen die Kubernetes-Nodes laufen.
 
 Nach dem Erstellen des Clusters wird automatisch eine `KUBECONFIG`-Datei erstellt, die die notwendigen Informationen enthält, um mit dem Cluster zu kommunizieren. Diese Datei wird im Verzeichnis `~/.kube/config` gespeichert. Der Ort aus dem die `KUBECONFIG`-Datei geladen wird, kann mit der Umgebungsvariable `KUBECONFIG` überschrieben werden.
+
+`kubectl`-Installation unter https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/#install-using-native-package-management
 
 Mit dem Befehl Befehl:
 
