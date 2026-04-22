@@ -32,3 +32,14 @@ Visual Studio Code
 
 #. Installation auf dem lokalen Rechner
 #. Installation der Erweiterung "Database Client JDBC" mit der Id `cweijan.dbclient-jdbc`
+
+Git
+---
+
+#. Installation von Git mit `apt install git`
+#. Umgang mit `git clone`
+
+Docker
+------
+
+#. Kostenloses Docker Account (wird für die Verwendung von Docker Scout benötigt)

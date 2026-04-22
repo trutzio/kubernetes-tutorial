@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:18.3-alpine3.23
+    environment:
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql
+    networks:
+      - pgnet
+  pgadmin4:
+    image: dpage/pgadmin4:9.14.0
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+    networks:
+      - pgnet
+    depends_on:
+      - postgres
+volumes:
+  pgdata: {}
+networks:
+  pgnet: {}

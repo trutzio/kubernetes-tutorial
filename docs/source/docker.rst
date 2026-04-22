@@ -148,19 +148,105 @@ Docker Compose
 
 Docker Compose ist ein Tool, mit dem man mehrere Docker-Container als eine Anwendung definieren und ausführen kann. Mit Docker Compose können die Container, Netzwerke und Volumes in einer YAML-Datei definiert werden, was die Verwaltung und Orchestrierung von Multi-Container-Anwendungen erleichtert.
 
-.. code-block:: docker
+Die untere Docker Compose-Datei definiert die gleiche Infrastruktur wie oben beschrieben, aber in einer einzigen Datei:
 
-    services:
-      postgres:
-        image: postgres:18.3-alpine3.23
-        environment:
-          POSTGRES_PASSWORD: postgres
-        volumes:
-          - pgdata:/var/lib/postgresql
-        networks:
-          - pgnet
-      pgadmin4:
-        image: dpage/pgadmin4:9.14.0
-        environment:
-          PGADMIN_DEFAULT_EMAIL: admin@admin.com
-          PGADMIN_DEFAULT_PASSWORD: admin
+.. literalinclude:: docker/compose.yaml
+
+Die in der obigen Datei definierte Infrastruktur kann mit dem folgenden Befehl gestartet werden:
+
+.. code-block:: bash
+
+    $ docker compose up -d
+    
+Die so erstellten Container und das Netzwerk können mit den folgenden Befehl heruntergefahren werden:
+
+.. code-block:: bash
+
+    $ docker compose down
+
+Die erstellten Volumes werden nicht automatisch entfernt.
+
+.. tip::
+
+    Mit `docker compose down -v` werden auch die erstellten Volumes entfernt, was bedeutet, dass alle Daten in der PostgreSQL-Datenbank verloren gehen. Es ist wichtig, dies zu beachten, bevor man diesen Befehl ausführt, um unbeabsichtigten Datenverlust zu vermeiden.
+
+Docker Scout
+------------
+
+Docker Scout untersucht Docker-Images auf Sicherheitslücken, veraltete Pakete und andere potenzielle Probleme. Es bietet detaillierte Berichte und Empfehlungen zur Verbesserung der Sicherheit und Leistung von Docker-Images.
+
+Unter Linux muss Docker Scout manuell installiert werden, da es nicht in den offiziellen Docker-Paketen enthalten ist. Die Installation erfolgt durch Herunterladen des Docker Scout-Binaries von der offiziellen GitHub-Seite und Einrichten der Docker-Konfiguration, um das Binary als Docker-CLI-Plugin zu verwenden.
+
+.. code-block:: bash
+
+    $ mkdir -p $HOME/.docker/scout
+    $ cd $HOME/.docker/scout
+    $ curl -LO https://github.com/docker/scout-cli/releases/download/v1.20.4/docker-scout_1.20.4_linux_amd64.tar.gz
+    $ tar xfz docker-scout_1.20.4_linux_amd64.tar.gz
+    $ rm docker-scout_1.20.4_linux_amd64.tar.gz README.md
+    $ chmod +x docker-scout
+
+
+Erstelle eine `.docker/config.json` Datei mit folgendem Inhalt:
+
+.. literalinclude:: docker/config.json
+
+Nun kann mit dem Befehl `docker scout version` überprüft werden, dass Scout korrekt installiert ist.
+
+Bevor Scout verwendet wird, muss man sich an Docker anmelden. Dies kann mit dem folgenden Befehl erfolgen:
+
+.. code-block:: bash
+
+    $ docker login -u [docker username]
+    $ # enter password when prompted as PAT token
+
+Ein PAT Token kann über https://app.docker.com/accounts/[docker username]/settings/personal-access-tokens erstellt werden. Es ist wichtig, dass das Token die Berechtigung "Read" hat. Gegebenfalls muss vorher ein (kostenloses) Docker Konto erstellt werden.
+
+Nun kann man mit Scout ein Docker-Image auf CVEs untersuchen. Zum Beispiel kann das vorhin verwendete PostgreSQL-Image mit dem folgenden Befehl untersucht werden:
+
+.. code-block::bash
+
+    $ docker scout quickview postgres:18.3-alpine3.23
+
+Common Vulnerability Scoring System (CVSS)
+------------------------------------------
+
+CVSS bewertet der Schwere von Sicherheitslücken. CVSS-Bewertungen reichen von 0 bis 10 (kritisch) und sie basiert auf Faktoren wie Art der Schwachstelle, Angriffsvektoren, Vertraulichkeit, Integrität, usw. Der CVSS-Score kann online mit dem `CVSS Calculator <https://nvd.nist.gov/vuln-metrics/cvss/v4-calculator>`_ berechnet werden. Der CVSS-Score wird zur besseren Veranschaulichung oft in folgende Kategorien eingeteilt: critical, high, medium, low und none.
+
+
+Exploit Prediction Scoring System (EPSS)
+----------------------------------------
+
+`Exploit Prediction Scoring System (EPSS) <https://www.first.org/epss/>`_ bewertet die Wahrscheinlichkeit, dass eine bekannte Sicherheitslücke ausgenutzt wird. EPSS-Bewertungen reichen von 0 bis 1, wobei 1 die höchste Wahrscheinlichkeit für eine Ausnutzung darstellt. EPSS berücksichtigt Faktoren wie die Verfügbarkeit von Exploits, die Komplexität der Schwachstelle, die Anzahl der betroffenen Systeme und die Bekanntheit der Schwachstelle.
+
+EPSS kann und sollte als Ergänzung zum CVSS-Score verwendet werden, um die Priorität von Sicherheitslücken zu bestimmen.
+
+Mit dem Befehl:
+
+.. code-block:: bash
+
+    $ docker scout cves postgres:18.3-alpine3.23
+
+kann eine Liste aller CVEs für das PostgreSQL-Image angezeigt werden. 
+
+Die obige CVE-Liste kann mit verschiedenen Filtern angepasst werden, um nur die relevantesten CVEs anzuzeigen. Zum Beispiel können nur CVEs mit einem CVSS-Score von "critical" oder "high" angezeigt werden:
+
+.. code-block:: bash
+
+    $ docker scout cves --only-severity critical,high postgres:18.3-alpine3.23
+
+Der Parameter `--epss` zeigt den EPSS-Score an, mit `--epss-percentile` können CVEs gefiltert werden, die sich mindestens in einer bestimmten EPSS-Perzentile befinden. Zum Beispiel zeigt `--epss-percentile 0.15` nur CVEs an, die sich mindestens in der 15-ten EPSS-Perzentile befinden.
+
+Mit dem folgenden Befehl werden nur die CVEs mit einem CVSS-Score von "critical" oder "high" und einem EPSS-Score, die sich mindestens in der 15-ten Perzentile befinden, angezeigt:
+
+.. code-block:: bash
+
+    $ docker scout cves --only-severity critical,high --epss --epss-percentile 0.15 postgres:18.3-alpine3.23
+
+Über https://scout.docker.com/reports/org/trutzio/policies können Policies für ein Unternehmen erstellt werden, um die Sicherheit von Docker-Images zu überwachen. Mit folgenden Befehl kann dann ein Image gegen die erstellten Policies überprüft werden:
+
+.. code-block:: bash
+
+    $ docker scout policy --org trutzio postgres:18.3-alpine3.23
+
+Docker Scount (als Webanwendung https://scout.docker.com) bietet auch die Möglichkeit, die CVEs von Docker-Images zu überwachen und Benachrichtigungen zu erhalten, wenn neue CVEs entdeckt werden, die die verwendeten Images betreffen. Dies ist besonders wichtig, um sicherzustellen, dass Sicherheitslücken schnell erkannt und behoben werden können, um die Sicherheit der Anwendungen zu gewährleisten.
