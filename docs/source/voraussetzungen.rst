@@ -1,8 +1,6 @@
 Voraussetzungen
 ===============
 
-.. _voraussetzungen:
-
 Linux
 -----
 

@@ -15,3 +15,4 @@ Inhalt
    voraussetzungen
    docker
    installation-kubernetes
+   flux

@@ -1,8 +1,6 @@
 Docker
 ======
 
-.. _docker:
-
 In diesem Abschnitt werden die Grundlagen von Docker behandelt, die in diesem Tutorial verwendet werden. Diese Grundlagen sind wichtig, um die Konzepte von Kubernetes zu verstehen, sie sind aber auch in DevOps-Alltag fast unverzichtbar.
 
 Installation

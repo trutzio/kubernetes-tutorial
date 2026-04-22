@@ -1,7 +1,6 @@
 Installation Kubernetes
 =======================
 
-.. _installation-kubernetes:
 .. _kind: https://kind.sigs.k8s.io/
 .. _k3s: https://k3s.io/
 
@@ -91,7 +90,8 @@ Bist du nun root auf einem Debian 13 Server, kannst du `k3s`_ mit dem folgenden 
    $ curl -sfL https://get.k3s.io | sh -
 
 
-.. info::
+.. note::
+
    Die Deinstallation von `k3s`_ wird mit dem Befehl `k3s-uninstall.sh` durchgeführt.
 
 Mit dem folgenden Befehl kannst du die Nodes des Clusters auflisten:
