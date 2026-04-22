@@ -14,4 +14,4 @@ Inhalt
 
    voraussetzungen
    docker
-   installation
+   installation-kubernetes

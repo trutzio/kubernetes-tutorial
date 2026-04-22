@@ -150,7 +150,7 @@ Docker Compose ist ein Tool, mit dem man mehrere Docker-Container als eine Anwen
 
 Die untere Docker Compose-Datei definiert die gleiche Infrastruktur wie oben beschrieben, aber in einer einzigen Datei:
 
-.. literalinclude:: docker/compose.yaml
+.. literalinclude:: ../../src/docker/compose.yaml
 
 Die in der obigen Datei definierte Infrastruktur kann mit dem folgenden Befehl gestartet werden:
 
@@ -189,7 +189,7 @@ Unter Linux muss Docker Scout manuell installiert werden, da es nicht in den off
 
 Erstelle eine `.docker/config.json` Datei mit folgendem Inhalt:
 
-.. literalinclude:: docker/config.json
+.. literalinclude:: ../../src/docker/config.json
 
 Nun kann mit dem Befehl `docker scout version` überprüft werden, dass Scout korrekt installiert ist.
 

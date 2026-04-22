@@ -1,7 +1,7 @@
-Installation
-============
+Installation Kubernetes
+=======================
 
-.. _installation:
+.. _installation-kubernetes:
 .. _kind: https://kind.sigs.k8s.io/
 .. _k3s: https://k3s.io/
 
