@@ -1,7 +1,7 @@
 Docker
 ======
 
-In diesem Abschnitt werden die Grundlagen von Docker behandelt. Diese sind wichtig, um die Konzepte von Kubernetes zu verstehen, sie sind aber auch im DevOps-Alltag unverzichtbar geworden.
+In diesem Abschnitt werden die Grundlagen von Docker behandelt. Docker sind wichtig, um die Konzepte von Kubernetes zu verstehen, Docker ist aber auch im DevOps-Alltag unverzichtbar geworden.
 
 Installation
 ------------
@@ -17,7 +17,7 @@ Die Installation von Docker ist abhängig vom Betriebsystem, unter Linux Debian 
 
     Mit `systemctl stop docker` wird der Docker-Dienst gestoppt, aber er wird automatisch erneut gestartet, wenn ein Docker-Befehl ausgeführt wird. Der Trigger ist der Zugriff auf den Unix-Socket `/var/run/docker.sock`. Ein normaler Linux-Benutzer hat standardmässig keine Berechtigung, auf diesen Unix-Socket zuzugreifen, und muss zur `docker`-Gruppe hinzugefügt werden, um ohne `sudo` auf Docker zugreifen zu können.
 
-Mit folgenden Befehlen wird ein normaler Benutzer angelegt und zur `docker`-Gruppe hinzugefügt. Dieser Benutzer kann dann ohne `sudo` auf Docker zugreifen.
+Normale Linux Benutzer können nicht auf Docker zugreifen, es sei denn sie sind Mitglied der `docker`-Gruppe oder verwenden `sudo`. Mit folgenden Befehlen wird ein normaler Benutzer angelegt und zur `docker`-Gruppe hinzugefügt. Dieser Benutzer kann dann ohne `sudo` auf Docker zugreifen.
 
 .. code-block:: bash
 
@@ -34,7 +34,7 @@ Mit folgenden Befehlen wird ein normaler Benutzer angelegt und zur `docker`-Grup
 Docker Context
 --------------
 
-Docker Contexts ermöglichen es, zwischen verschiedenen Docker-Umgebungen zu wechseln, wie zum Beispiel lokalen Docker-Engines oder Remote-Docker-Hosts. Ein Docker Context speichert die Verbindungsinformationen und Einstellungen für eine bestimmte Docker-Umgebung.
+Docker Contexts ermöglichen es, zwischen verschiedenen Docker-Umgebungen zu wechseln. Ein Docker Context speichert die Verbindungsinformationen für eine bestimmte Docker-Umgebung.
 
 .. code-block:: bash
 
@@ -108,7 +108,7 @@ Nun wollen wir einen PostgreSQL und einen PGAdmin4 Container starten, der Postgr
     $ docker container ls
     $ docker logs -f pgadmin4
 
-Nun kann im Browser die URL `http://localhost:8080` aufgerufen werden, um die PGAdmin4-Weboberfläche zu öffnen. Dort können die folgenden Anmeldedaten verwendet werden:
+Nun kann im Browser die URL `http://[ip]:8080` aufgerufen werden, um die PGAdmin4-Weboberfläche zu öffnen. Dort können die folgenden Anmeldedaten verwendet werden:
 
 +----------------+-----------------+
 | E-Mail:        | admin@admin.com |
