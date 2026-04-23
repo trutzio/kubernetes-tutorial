@@ -2899,7 +2899,7 @@
       "width": 152.8580799383473,
       "height": 129.07630121112732,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -2913,8 +2913,8 @@
         "type": 3
       },
       "seed": 1391345838,
-      "version": 1205,
-      "versionNonce": 297883803,
+      "version": 1206,
+      "versionNonce": 389880277,
       "isDeleted": false,
       "boundElements": [
         {
@@ -2938,7 +2938,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1776971433847,
+      "updated": 1776972711892,
       "link": null,
       "locked": false
     },
@@ -2950,7 +2950,7 @@
       "width": 81.16666412353516,
       "height": 20,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "hachure",
       "strokeWidth": 2,
@@ -2962,11 +2962,11 @@
       "index": "b0T",
       "roundness": null,
       "seed": 1090386670,
-      "version": 1834,
-      "versionNonce": 171925845,
+      "version": 1835,
+      "versionNonce": 1511643643,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1776971389332,
+      "updated": 1776972711892,
       "link": null,
       "locked": false,
       "text": "ha-proxy-0",
@@ -2987,7 +2987,7 @@
       "width": 152.8580799383473,
       "height": 129.07630121112732,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -3001,8 +3001,8 @@
         "type": 3
       },
       "seed": 1048965106,
-      "version": 1268,
-      "versionNonce": 810979355,
+      "version": 1269,
+      "versionNonce": 576482389,
       "isDeleted": false,
       "boundElements": [
         {
@@ -3026,7 +3026,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1776971565306,
+      "updated": 1776972705038,
       "link": null,
       "locked": false
     },
@@ -3038,7 +3038,7 @@
       "width": 74.33333587646484,
       "height": 20,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "hachure",
       "strokeWidth": 2,
@@ -3050,11 +3050,11 @@
       "index": "b0V",
       "roundness": null,
       "seed": 1072112050,
-      "version": 1890,
-      "versionNonce": 949252437,
+      "version": 1891,
+      "versionNonce": 288288635,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1776971434656,
+      "updated": 1776972705038,
       "link": null,
       "locked": false,
       "text": "haproxy-1",
@@ -3715,7 +3715,7 @@
       "width": 60.30150719643616,
       "height": 66.13262500992685,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -3729,8 +3729,8 @@
         "type": 2
       },
       "seed": 1688082546,
-      "version": 287,
-      "versionNonce": 387236846,
+      "version": 288,
+      "versionNonce": 801723573,
       "isDeleted": false,
       "boundElements": [
         {
@@ -3742,7 +3742,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1776619050857,
+      "updated": 1776972724850,
       "link": null,
       "locked": false
     },
@@ -3754,7 +3754,7 @@
       "width": 18.58333396911621,
       "height": 12,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -3766,11 +3766,11 @@
       "index": "b0h",
       "roundness": null,
       "seed": 590532978,
-      "version": 249,
-      "versionNonce": 1495033522,
+      "version": 250,
+      "versionNonce": 195771675,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1776619020965,
+      "updated": 1776972724850,
       "link": null,
       "locked": false,
       "text": "etcd",
@@ -3791,7 +3791,7 @@
       "width": 60.30150719643616,
       "height": 66.13262500992685,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -3805,8 +3805,8 @@
         "type": 2
       },
       "seed": 1585743474,
-      "version": 309,
-      "versionNonce": 1334152434,
+      "version": 310,
+      "versionNonce": 1166472725,
       "isDeleted": false,
       "boundElements": [
         {
@@ -3822,7 +3822,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1776619068215,
+      "updated": 1776972724850,
       "link": null,
       "locked": false
     },
@@ -3834,7 +3834,7 @@
       "width": 18.58333396911621,
       "height": 12,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -3846,11 +3846,11 @@
       "index": "b0j",
       "roundness": null,
       "seed": 1087301682,
-      "version": 270,
-      "versionNonce": 1890837042,
+      "version": 271,
+      "versionNonce": 1931141563,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1776619020965,
+      "updated": 1776972724850,
       "link": null,
       "locked": false,
       "text": "etcd",
@@ -3871,7 +3871,7 @@
       "width": 60.30150719643616,
       "height": 66.13262500992685,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -3885,8 +3885,8 @@
         "type": 2
       },
       "seed": 1692071982,
-      "version": 309,
-      "versionNonce": 680238450,
+      "version": 310,
+      "versionNonce": 1673647931,
       "isDeleted": false,
       "boundElements": [
         {
@@ -3898,7 +3898,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1776619070048,
+      "updated": 1776972719145,
       "link": null,
       "locked": false
     },
@@ -3910,7 +3910,7 @@
       "width": 18.58333396911621,
       "height": 12,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -3922,11 +3922,11 @@
       "index": "b0l",
       "roundness": null,
       "seed": 1936179822,
-      "version": 271,
-      "versionNonce": 910327218,
+      "version": 272,
+      "versionNonce": 324439541,
       "isDeleted": false,
       "boundElements": [],
-      "updated": 1776619020965,
+      "updated": 1776972719145,
       "link": null,
       "locked": false,
       "text": "etcd",
@@ -4067,7 +4067,7 @@
       "width": 88.53379602000769,
       "height": 88.53379602000769,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -4081,8 +4081,8 @@
         "type": 2
       },
       "seed": 1126295355,
-      "version": 106,
-      "versionNonce": 2063570933,
+      "version": 107,
+      "versionNonce": 1257446165,
       "isDeleted": false,
       "boundElements": [
         {
@@ -4098,7 +4098,7 @@
           "type": "arrow"
         }
       ],
-      "updated": 1776971666287,
+      "updated": 1776972708864,
       "link": null,
       "locked": false
     },
@@ -4110,7 +4110,7 @@
       "width": 46.46666717529297,
       "height": 40,
       "angle": 0,
-      "strokeColor": "#95c3ff",
+      "strokeColor": "#002d5d",
       "backgroundColor": "#fff7ed",
       "fillStyle": "solid",
       "strokeWidth": 2,
@@ -4122,11 +4122,11 @@
       "index": "b0p",
       "roundness": null,
       "seed": 852637749,
-      "version": 78,
-      "versionNonce": 798150997,
+      "version": 79,
+      "versionNonce": 1706003643,
       "isDeleted": false,
       "boundElements": null,
-      "updated": 1776971666287,
+      "updated": 1776972708864,
       "link": null,
       "locked": false,
       "text": "virtual\nip",

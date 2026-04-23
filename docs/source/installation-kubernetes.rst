@@ -3,6 +3,7 @@ Installation Kubernetes
 
 .. _kind: https://kind.sigs.k8s.io/
 .. _k3s: https://k3s.io/
+.. _kubectl: https://kubernetes.io/docs/tasks/tools/install-kubectl/
 
 In diesem Abschnitt werden wir zwei Kubernetes-Distributionen installieren:
 
@@ -232,38 +233,3 @@ Wie kann man nun einen Worker-Node aus dem Cluster entfernen?
    $ kubectl get nodes
 
 Möchte man den Worker-Node wieder zum Cluster hinzufügen, so kann man mit `systemctl restart k3s-agent` den `k3s`-Agent auf dem Worker-Node neu starten, damit er sich wieder mit dem Control-Plane verbindet.
-
-Ziel dieser k3s Installation
-----------------------------
-
-.. image:: img/kubernetes-ha-installation.svg
-   :align: center
-   :alt: Kubernetes HA Installation
-
-Cluster mit n Nodes
--------------------
-
-HA-Cluster
-----------
-
-HA-Cluster mit Load-Balancer
-----------------------------
-
-Load-Balancer Konfiguration:
-
-.. code-block:: console
-
-   frontend healthz
-      bind :80
-      mode http
-      monitor-uri /healthz
-
-   frontend k3s-frontend
-      bind :6443
-      default_backend k3s-backend
-
-   backend k3s-backend
-      balance roundrobin
-      server k3s-single-control-plane [ip master-0]:6443 check
-      server k3s-single-control-plane [ip master-1]:6443 check
-      server k3s-single-control-plane [ip master-2]:6443 check

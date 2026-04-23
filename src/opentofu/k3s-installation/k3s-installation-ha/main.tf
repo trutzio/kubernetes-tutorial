@@ -18,7 +18,7 @@ variable "hcloud_token_schulungen" {
 # Anzahl der nodes, kann on OpenTofu über -var k3s_node_count=n gesetzt werden
 variable "k3s_node_count" {
   type    = number
-  default = 5
+  default = 2
 }
 
 # Token für die Verbindung zwischen den control-planes
