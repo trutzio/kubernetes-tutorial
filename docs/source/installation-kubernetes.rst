@@ -177,13 +177,61 @@ Möchte man den `kubectl`-Befehl direkt verwenden, ohne jedes Mal `k3s` davor zu
 
    Die Deinstallation von `k3s`_ wird mit dem Befehl `k3s-uninstall.sh` durchgeführt.
 
-Mit dem folgenden Befehl kannst du die Nodes des Clusters auflisten:
+Bitte auf allen Schulungs-VMs `k3s`_ *bis auf eine*, zum Beispiel `student-0`, mit dem obigen Befehl `k3s`_ deinstallieren. Nun wird `k3s`_ auf allen Schulungs-VMs erneut als Kubernetes-Worker installiert, die sich mit dem `k3s`_-Control-Plane verbinden auf der verbleibenden Schulungs-VM:
+
+.. code-block:: console
+
+   $ curl -sfL https://get.k3s.io | K3S_URL=https://[ip student-0]:6443 K3S_TOKEN=[token] sh -
+
+Der Token in dem obigen Befehl kann mit folgendem Befehl auf der `student-0` VM ausgelesen werden:
+
+.. code-block:: console
+
+   $ cat /var/lib/rancher/k3s/server/agent-token
+
+.. question::
+   Wie kann man die IP-Adresse der `student-0` VM herausfinden, um sie im obigen Befehl zu verwenden?
+
+.. answer::
+   Mit dem Befehl `ip addr show dev eth0` kann man die IP-Adresse der `student-0` VM herausfinden.
+
+Was passiert wenn man auf einem Worker-Node den `kubectl get nodes` Befehl ausführt? Warum? Offensichtlich muss ein Worker-Node wie jeder Rechner mit einem Kubernetes-Cluster kommunizieren können, benötigt also die Konfiguration des Control-Planes, um mit diesem zu kommunizieren. Typischerweise wird **NICHT** von den Worker-Nodes aus mit `kubectl`_ gearbeitet, wir man dies aber ausnahmsweise hier tun, um zu zeigen, dass die Worker-Nodes tatsächlich mit dem Control-Plane kommunizieren können.
+
+Wenn man die `./kube/config` Datei des Control-Planes auf einem Worker-Node 1:1 kopiert, kann kann trotzdem nicht mit `kubectl`_ auf dem Worker-Node arbeiten, da die IP Addresse des Control-Planes in der `./kube/config` Datei auf 127.0.0.1 zeigt, also muss hier die IP-Adresse des Control-Planes eingetragen werden, damit die Worker-Nodes mit dem Control-Plane kommunizieren können. Damit kann nun auf allen Worker-Nodes mit `kubectl`_ gearbeitet werden, da sie nun die Konfiguration des Control-Planes haben und mit diesem kommunizieren können. Zum Überprüfen, kann man zum Beispiel auf einem Worker-Node den Befehl `kubectl get nodes` ausführen.
+
+Was passiert, wenn man von einem Worker-Node aus einen Pod startert? Zum Beispiel mit folgendem Befehl:
+
+.. code-block:: console
+
+   $ kubectl run nginx --image=nginx
+
+Mit dem Befehl 
+
+.. code-block:: console
+
+   $ kubectl get pods -o wide
+
+kann man nun sehen, dass der Pod tatsächlich auf einem der Worker-Nodes gestartet wurde, und auch auf welchem Node der Pod läuft. Auf diesem Node kann man zum Beispiel mit `ps aux | grep nginx` sehen, dass tatsächlich ein nginx Prozess läuft, da `k3s`_ die Container-Runtime `containerd` verwendet, die wiederum `runc` verwendet, um die Container zu starten. `runc` startet die Container als Prozesse auf dem Host-System, daher sieht man den nginx Prozess direkt auf dem Node, auf dem der Pod läuft. Mit
+
+.. code-block:: console
+
+   $ ps aux | grep containerd
+   $ ps aux | grep runc
+
+kann man die entsprechenden Prozesse auf dem Worker-Node sehen. D.h. Kubernetes startet schon einen Docker Container aber nicht über den `dockerd`-Daemin, sondern direkt über `containerd` und `runc`. Dies ergibt Sinn, da die Docker-API nicht benötigt wird.
+
+Wie kann man nun einen Worker-Node aus dem Cluster entfernen?
 
 .. code-block:: console
 
    $ kubectl get nodes
-   NAME                STATUS   ROLES           AGE   VERSION
-   debian-4gb-nbg1-1   Ready    control-plane   18s   v1.34.6+k3s1
+   $ kubectl drain --ignore-daemonsets --force [node-name]
+   $ kubectl get pods -o wide
+   $ kubectl get nodes
+   $ kubectl delete node [node-name]
+   $ kubectl get nodes
+
+Möchte man den Worker-Node wieder zum Cluster hinzufügen, so kann man mit `systemctl restart k3s-agent` den `k3s`-Agent auf dem Worker-Node neu starten, damit er sich wieder mit dem Control-Plane verbindet.
 
 Ziel dieser k3s Installation
 ----------------------------

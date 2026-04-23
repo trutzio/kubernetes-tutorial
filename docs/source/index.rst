@@ -15,4 +15,5 @@ Inhalt
    voraussetzungen
    docker
    installation-kubernetes
+   opentofu
    flux
