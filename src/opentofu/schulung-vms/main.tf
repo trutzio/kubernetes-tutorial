@@ -7,7 +7,7 @@ terraform {
   }
 }
 
-variable "vm_count" {
+variable "students" {
   type        = number
   description = "Number of VMs to create"
   default     = 1
@@ -18,7 +18,7 @@ data "hcloud_ssh_key" "schulung" {
 }
 
 resource "hcloud_server" "student" {
-  for_each    = { for vm in range(0, var.vm_count) : vm => "student-${vm}" }
+  for_each    = { for vm in range(0, var.students) : vm => "student-${vm}" }
   name        = each.value
   image       = "debian-13"
   server_type = "cpx32"
@@ -33,7 +33,8 @@ resource "hcloud_server" "student" {
       "apt update",
       "apt upgrade -y",
       "apt install -y git",
-      "git clone https://github.com/trutzio/kubernetes-tutorial.git"
+      "git clone https://github.com/trutzio/kubernetes-tutorial.git",
+      "apt install -y yq",
     ]
     connection {
       type        = "ssh"
