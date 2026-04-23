@@ -132,23 +132,46 @@ Insgesamt haben wir mit `kind`_ folgenden Cluster aufgebaut:
    :align: center
    :alt: kind Cluster
 
+Bitte mit `kind delete cluster` den Cluster wieder entfernen, damit wir mit der Installation von `k3s`_ fortfahren können.
+
 
 k3s - die leichtgewichtige Kubernetes-Distribution
 --------------------------------------------------
 
 `k3s`_ ist eine leichtgewichtige Kubernetes-Distribution. Sie ist eine gute Option für das Lernen von Kubernetes, da sie einfach zu installieren und zu verwenden ist. In der minimalen Konfiguration benötigt `k3s`_ 2 CPUs und 4 GB RAM, was es auch für kleinere Server oder virtuelle Maschinen geeignet macht.
 
-Wir installieren nun die `k3s`_-Kubernetes-Distribution auf einem Debian 13 Linux Server. Dabei benötigst du root-Zugriff auf diesem Server, um die Installation durchzuführen. Logge dich zum Beispiel mit `ssh -i schulung root@[ip]` auf ein Debian 13 Server ein oder öffne mit `sudo bash` eine Root-Shell auf einem Server, auf dem du schon Zugriff hast.
-
 .. note::
       Unter Windows kann man mit `wsl --install Debian` eine Debian 13 Distribution installieren und dann mit `wsl -d Debian` eine Bash öffnen. Vergiss nicht `sudo bash` anschliessen einzugeben, um root-Rechte zu erhalten.
 
-Bist du nun root auf einem Debian 13 Server, kannst du `k3s`_ mit dem folgenden Befehl installieren:
+`k3s`_ kann mit dem folgenden Befehl in der Minimalkonfiguration installiert werden:
 
 .. code-block:: console
 
    $ curl -sfL https://get.k3s.io | sh -
 
+Mit
+
+.. code-block:: console
+
+   $ systemctl status k3s
+
+kann überprüft werden, ob der `k3s`-Dienst erfolgreich gestartet wurde. Wenn alles korrekt installiert ist, sollte der Dienst den Status "active (running)" anzeigen.
+
+`k3s`_ kommt mit einem eingebauten `kubectl`-Befehl, der automatisch konfiguriert wird, um mit dem `k3s`-Cluster zu kommunizieren. Mit 
+
+.. code-block:: console
+
+   $ k3s kubectl version --client
+   $ k3s kubectl get nodes
+
+kann man zum Beispiel die Version von `kubectl`_ überprüfen und die Nodes des Clusters auflisten.
+
+Möchte man den `kubectl`-Befehl direkt verwenden, ohne jedes Mal `k3s` davor zu schreiben, so kann man zum Beispiel die Datei `/etc/rancher/k3s/k3s.yaml` nach `~/.kube/config` kopieren und dann den `kubectl`-Befehl verwenden um auf `k3s`_ zuzugreifen:
+
+.. code-block:: console
+
+   $ cp /etc/rancher/k3s/k3s.yaml ~/.kube/config
+   $ kubectl get nodes
 
 .. note::
 
