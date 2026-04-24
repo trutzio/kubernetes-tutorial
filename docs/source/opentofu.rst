@@ -148,3 +148,17 @@ Ein MASTER-Load-Balancer und ein BACKUP-LB werden installiert. Der MASTER-LB üb
 
 .. literalinclude:: ../../src/opentofu/k3s-installation/k3s-keepalived/main.tf
 
+.. code-block:: bash
+
+   $ cd ~/kubernetes-tutorial/src/opentofu/k3s-installation/k3s-keepalived
+   $ tofu init
+   $ tofu plan
+   $ tofu apply
+   $ tofu state list
+   $ tofu state show 'hcloud_server.lb["0"]' | grep "ipv4_address"
+   $ scp -i ../../schulung keepalived-master.conf root@[ip lb-0]:/etc/keepalived/keepalived.conf
+   $ ssh -i ../../schulung root@[ip lb-0]
+   $ systemctl status keepalived
+   $ systemctl restart keepalived
+   $ systemctl status keepalived
+   $ tcpdump proto 112

@@ -26,7 +26,7 @@ resource "hcloud_server" "lb" {
   provisioner "remote-exec" {
     inline = [
       "apt update",
-      "apt install -y keepalived",
+      "apt install -y keepalived tcpdump",
     ]
     connection {
       type        = "ssh"
