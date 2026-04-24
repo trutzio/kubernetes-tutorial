@@ -155,10 +155,35 @@ Ein MASTER-Load-Balancer und ein BACKUP-LB werden installiert. Der MASTER-LB üb
    $ tofu plan
    $ tofu apply
    $ tofu state list
+   $
    $ tofu state show 'hcloud_server.lb["0"]' | grep "ipv4_address"
    $ scp -i ../../schulung keepalived-master.conf root@[ip lb-0]:/etc/keepalived/keepalived.conf
    $ ssh -i ../../schulung root@[ip lb-0]
    $ systemctl status keepalived
+   $ vim /etc/keepalived/keepalived.conf # change [ip lb-0] and [ip lb-1]
    $ systemctl restart keepalived
    $ systemctl status keepalived
    $ tcpdump proto 112
+   $
+   $ tofu state show 'hcloud_server.lb["1"]' | grep "ipv4_address"
+   $ scp -i ../../schulung keepalived-backup.conf root@[ip lb-1]:/etc/keepalived/keepalived.conf
+   $ ssh -i ../../schulung root@[ip lb-1]
+   $ systemctl status keepalived
+   $ vim /etc/keepalived/keepalived.conf # change [ip lb-0] and [ip lb-1]
+   $ systemctl restart keepalived
+   $ systemctl status keepalived
+   $ tcpdump proto 112
+   $
+   $ # lb-0
+   $ ip -4 addr show eth0
+   $
+   $ # lb-1
+   $ ip -4 addr show eth0
+   $
+   $ # lb-0
+   $ systemctl stop keepalived
+   $
+   $ # lb-1
+   $ ip -4 addr show eth0
+
+Unterschieden werden muss noch der Fall, ob der komplette LB als Server ausfällt oder nur der Keepalived-Dienst oder nur der haproxy-Dienst.
