@@ -12,8 +12,8 @@ data "hcloud_ssh_key" "schulung" {
 }
 
 # 2 keepalived server
-resource "hcloud_server" "master" {
-  for_each    = { for server in range(1, 2) : server => "keepalived-${server}" }
+resource "hcloud_server" "lb" {
+  for_each    = { for server in range(0, 2) : server => "keepalived-lb-${server}" }
   name        = "${each.value}"
   image       = "debian-13"
   server_type = "cx23"
