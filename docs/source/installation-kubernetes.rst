@@ -40,13 +40,14 @@ Die Erstellung eines Kubernetes-Clusters mit `kind`_ ist sehr einfach:
 
    $ kind create cluster
 
-.. error::
+.. tip::
 
    Falls der der obige Befehl fehlschlägt, könnte es daran liegen, dass Docker nicht installiert oder nicht gestartet ist. `kind`_ benötigt Docker, um die Container zu erstellen, in denen die Kubernetes-Nodes laufen.
 
 Nach dem Erstellen des Clusters wird automatisch eine `KUBECONFIG`-Datei erstellt, die die notwendigen Informationen enthält, um mit dem Cluster zu kommunizieren. Diese Datei wird im Verzeichnis `~/.kube/config` gespeichert. Der Ort aus dem diese Konfigurationsdatei geladen wird, kann mit der Umgebungsvariable `KUBECONFIG` überschrieben werden.
 
-
+kubectl
+-------
 
 Nun benötigen wir die Kubernetes-CLI `kubectl`, um mit unserem `kind`_-Cluster zu kommunizieren. `kubectl`_ ist das zentrale Administrationstool für Kubernetes über die Kommandozeile:
 
