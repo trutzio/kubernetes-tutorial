@@ -25,6 +25,7 @@ resource "hcloud_server" "lb" {
   ssh_keys = [data.hcloud_ssh_key.schulung.name]
   provisioner "remote-exec" {
     inline = [
+      "apt update",
       "apt install -y keepalived",
     ]
     connection {
