@@ -158,3 +158,11 @@ Nun können wir den PVC in unserem StatefulSet verwenden:
     $ psql -U postgres
     $ SELECT * FROM person;
 
+External Secrets
+----------------
+
+.. code-block:: bash
+
+    $ kubectl apply -f "https://raw.githubusercontent.com/external-secrets/external-secrets/v2.4.0/deploy/crds/bundle.yaml" --server-side
+    $ kubectl apply -f schulungk8s-secret-store.yaml
+    
