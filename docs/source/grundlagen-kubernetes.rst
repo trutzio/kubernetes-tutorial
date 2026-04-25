@@ -158,11 +158,15 @@ Nun können wir den PVC in unserem StatefulSet verwenden:
     $ psql -U postgres
     $ SELECT * FROM person;
 
-External Secrets
-----------------
+ConfigMaps und Secrets
+----------------------
 
-.. code-block:: bash
+ConfigMaps und Secrets sind Möglichkeiten, Konfigurationsdaten und sensible Daten in Kubernetes zu speichern. ConfigMaps werden für Konfigurationsdaten verwendet, Secrets für sensible Daten wie Passwörter oder API-Schlüssel verwendet werden. ConfigMaps und Secrets können in Pods als Umgebungsvariablen übergeben oder als Dateien gemountet werden.
 
-    $ kubectl apply -f "https://raw.githubusercontent.com/external-secrets/external-secrets/v2.4.0/deploy/crds/bundle.yaml" --server-side
-    $ kubectl apply -f schulungk8s-secret-store.yaml
+TODO: ConfigMaps und Secrets erklären anhand von `POSTGRES_PASSWORD`-Secret und `POSTGRES_USER`-ConfigMap, die in unserem Postgres StatefulSet verwendet werden.
+
+Gateways
+--------
+
+TODO: Gateways erklären 
     
