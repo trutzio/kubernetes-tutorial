@@ -59,4 +59,24 @@ Services ermöglichen es, eine Gruppe von Pods als einen einzigen Dienst zu expo
 
     $ kubectl apply -f pgadmin4-service.yaml
     $ kubectl get svc
-    $ kubectl port-forward svc/pgadmin4 8080:9090 --address=0.0.0.0
+    $ kubectl port-forward svc/pgadmin4 8080:9090 --address=0.0.0.0 # und im Browser aufrufen
+    $ kubectl describe svc/pgadmin4
+    $ kubectl get endpoints pgadmin4
+    $ kubectl get endpointslices
+
+.. notice :: 
+
+   Session Affinity mit `ClientIP` sorgt dafür, dass Anfragen von einem bestimmten Client immer an denselben Pod weitergeleitet werden. ABER die IP Adresse kann sich ändern, was zu Problemen führen kann. In einer Produktionsumgebung sollte man daher vorsichtig mit der Verwendung von Session Affinity auf Basis von IP-Adressen sein (Kubernetes Services). Besser ist es Session Affinity auf Basis von Cookies zu verwenden, wenn die Anwendung dies unterstützt.
+
+StatefulSets
+------------
+
+StatefulSets sind sehr ähnlich zu Deployments, aber sie sind für Anwendungen gedacht, die einen stabilen Netzwerk-Identität und persistenten Speicher benötigen. Sie werden oft für Datenbanken verwendet. Wir wollen nun eine PostgreSQL-Datenbank mit einem StatefulSet deployen:
+
+.. literalinclude:: ../../src/deployments/postgres-statefulset.yaml
+
+.. code-block:: bash
+
+    $ kubectl apply -f postgres-statefulset.yaml
+    $ kubectl get statefulsets
+    $ kubectl get pods -o wide
