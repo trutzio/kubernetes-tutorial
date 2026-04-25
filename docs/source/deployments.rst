@@ -51,3 +51,12 @@ Nun können wir über Port-Forwarding beide Pods erreichen.
 Services
 --------
 
+Services ermöglichen es, eine Gruppe von Pods als einen einzigen Dienst zu exponieren. Sie ermöglichen es, den Zugriff auf die Pods zu load-balancen.
+
+.. literalinclude:: ../../src/deployments/pgadmin4-service.yaml
+
+.. code-block:: bash
+
+    $ kubectl apply -f pgadmin4-service.yaml
+    $ kubectl get svc
+    $ kubectl port-forward svc/pgadmin4 8080:9090 --address=0.0.0.0
