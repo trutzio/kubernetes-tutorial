@@ -13,5 +13,5 @@ spec:
   #sessionAffinity: ClientIP
   #sessionAffinityConfig:
     #clientIP:
-      #timeoutSeconds: 10800
+      #timeoutSeconds: 10800 # 3 hours
   
