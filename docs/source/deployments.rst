@@ -80,3 +80,63 @@ StatefulSets sind sehr ähnlich zu Deployments, aber sie sind für Anwendungen g
     $ kubectl apply -f postgres-statefulset.yaml
     $ kubectl get statefulsets
     $ kubectl get pods -o wide
+    $ kubectl describe statefulset/postgres
+
+Wir wollen einen Service erstellen, um die Datenbank zu erreichen:
+
+.. literalinclude:: ../../src/deployments/postgres-service.yaml
+
+.. code-block:: bash
+
+    $ kubectl apply -f postgres-service.yaml
+    $ kubectl get svc
+    $ kubectl describe svc/postgres
+    $ kubectl port-forward svc/postgres 5432:5432 --address=0.0.0.0 # und aus einem PG Client heraus auf die Datenbank zugreifen
+
+Nun kann man in der PgAdmin4 UI die Postgres-Datenbank einrichten und sich mit ihr verbinden.
+
+.. code-block:: bash
+
+    $ kubectl port-forward svc/pgadmin4 8080:9090 --address=0.0.0.0
+
+und im Browser eine DB Verbindung in PgAdmin4 einrichten, um die Postgres-Datenbank zu erreichen. Der Hostname ist `postgres` (der Name des Services), der Port ist `5432`, der Benutzername ist `postgres` und das Passwort ist `secret`.
+
+Nun kann man sich erneut aus Visual Studio Code mit der Postgres-Datenbank verbinden, um zu sehen, dass die Daten persistent sind:
+
+.. code-block:: bash
+
+    $ kubectl port-forward svc/postgres 5432:5432 --address=0.0.0.0
+
+Was passiert aber, wenn wir der `postgres`-Pod aus dem StatefulSet gelöscht wird?
+
+.. code-block:: bash
+
+    $ kubectl delete pod postgres-0
+    $ kubectl get pods -o wide
+
+Der Pod wird automatisch neu erstellt, da er von einem StatefulSet verwaltet wird. Und da der Pod eine stabile Netzwerk-Identität hat, wird er immer den Namen `postgres-0` haben. Ist die Datenbanktabelle, die wir vorhin erstellt haben, immer noch da?
+
+Persistent Volumes Claims
+-------------------------
+
+Persistent Volumes Claims (PVCs) sind eine Möglichkeit, persistenten Speicher für Pods bereitzustellen. Sie ermöglichen es, Speicher von einem Storage-Provider zu reservieren und diesen Speicher dann in einem Pod zu verwenden. 
+
+.. literalinclude:: ../../src/deployments/postgres-pvc.yaml
+
+.. code-block:: bash
+
+    $ kubectl apply -f postgres-pvc.yaml
+    $ kubectl get pvc
+    $ kubectl describe pvc/postgres
+
+Nun können wir den PVC in unserem StatefulSet verwenden:
+
+.. literalinclude:: ../../src/deployments/postgres-statefulset-with-pvc.yaml
+
+.. code-block:: bash
+
+    $ kubectl delete statefulset postgres
+    $ kubectl apply -f postgres-statefulset-with-pvc.yaml
+    $ kubectl get statefulsets
+    $ kubectl get pods -o wide
+    $ kubectl describe statefulset/postgres
