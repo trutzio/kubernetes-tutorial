@@ -16,7 +16,7 @@ Inhalt
    docker
    installation-kubernetes
    opentofu
-   deployments
+   grundlagen-kubernetes
    helm
    flux
    pipelines

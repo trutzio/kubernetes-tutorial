@@ -1,5 +1,5 @@
-Kubernetes Deployments
-======================
+Kubernetes Grundlagen
+=====================
 
 Für den weitere Verlauf des Tutorials werde ich einen Control-Plane starten. Siehe `~/kubernetes-tutorial/src/opentofu/k3s-installation/k3s-installation-single/main.tf`.
 
@@ -13,6 +13,9 @@ Danach werden alle Teilnehmer die Möglichkeit haben, sich mit dem Cluster zu ve
     $ scp -i ../opentofu/schulung root@$IP_CONTROL_PLANE:/etc/rancher/k3s/k3s.yaml ~/.kube/config
     $ vim ~/.kube/config # hier die IP-Adresse des Control-Planes eintragen, damit kubectl mit dem Cluster kommunizieren kann
     $ kubectl get nodes
+
+Deployments
+-----------
 
 Wir fangen mit den Kubernetes Grundlagen an und zwar mit einem PgAdmin4 Deployment:
 
@@ -135,8 +138,23 @@ Nun können wir den PVC in unserem StatefulSet verwenden:
 
 .. code-block:: bash
 
+    $ kubectl get statefulsets
     $ kubectl delete statefulset postgres
     $ kubectl apply -f postgres-statefulset-with-pvc.yaml
+    $ kubectl describe pvc/postgres
     $ kubectl get statefulsets
     $ kubectl get pods -o wide
     $ kubectl describe statefulset/postgres
+    $ kubectl exec -it pod/postgres-0 -- bash
+    $ psql -U postgres
+    $ CREATE TABLE person (name VARCHAR(255));
+    $ INSERT INTO person (name) VALUES ('Christian Trutz');
+    $ SELECT * FROM person;
+    $ \\q
+    $ exit
+    $ kubectl delete pod postgres-0
+    $ kubectl get pods -o wide
+    $ kubectl exec -it pod/postgres-0 -- bash
+    $ psql -U postgres
+    $ SELECT * FROM person;
+
