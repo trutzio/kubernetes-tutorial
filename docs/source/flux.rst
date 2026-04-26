@@ -40,4 +40,12 @@ Das folgende HelmRelease-Manifest definiert das Deployment der Rolldice-Anwendun
    $ flux get helmreleases -n default # oder
    $ kubectl get helmreleases
    $ kubectl describe helmrelease/rolldice
-   $ kubectl get all-l app=rolldice
+   $ kubectl get all -l app.kubernetes.io/name=rolldice # pod ist nicht bereit, warum?
+   $ kubectl logs -l app.kubernetes.io/name=rolldice # fehlerhafte Version, da kein liveliness und readiness
+   $ # neue Version des Chats in Git pushen, damit Flux die Änderungen erkennt und das Deployment aktualisiert, die appVersion in Chart.yaml auf 1.0.1 erhöhen, damit Flux das Image mit liveliness und readiness aktualisiert
+   $ helm ls # perfekt, Flux erzeugt die korrekten Helm CRDs in Kubernetes
+   $ # http://apps.trutz.cloud/rolldice im Browser öffnen, um die Anwendung zu sehen
+
+Flux Webhook-Receiver
+---------------------
+
