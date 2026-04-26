@@ -49,3 +49,14 @@ Das folgende HelmRelease-Manifest definiert das Deployment der Rolldice-Anwendun
 Flux Webhook-Receiver
 ---------------------
 
+Erzeuge zunächst ein zufälliges Secret für den Webhook-Receiver:
+
+.. code-block:: console
+
+   $ TOKEN=$(head -c 12 /dev/urandom | shasum | cut -d ' ' -f1)
+   $ echo $TOKEN
+   $ kubectl -n flux-system create secret generic webhook-token --from-literal=token=$TOKEN
+   $ kubectl -n flux-system get secrets
+   $ kubectl apply -f webhook-receiver-ingress.yaml
+   $ # webhook-receiver.trutz.cloud in DNS eintragen, damit die Ingress-Regel funktioniert
+   
