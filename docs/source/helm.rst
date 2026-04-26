@@ -106,4 +106,7 @@ In GitHub Actions wird eine Pipeline definiert, die die Anwendung baut, das Dock
     $ # DOCKER_USERNAME: trutzio
     $ # DOCKER_PASSWORD: [docker_pat]
     $ git tag v1.0.0
-    $ git push origin v1.0.0
+    $ git push origin --tags
+    $ # In GitHub Actions die Pipeline beobachten, wie das Docker-Image gebaut und in Docker Hub gepusht wird
+
+Mit Hilfe der obigen Pipeline wird das Docker-Image automatisch gebaut und in Docker Hub gepusht, sobald ein neues Git-Tag mit dem Muster v*.*.* gepusht wird. Das Docker-Image erhält dabei automatisch die Tags 1.0.x, 1.0, 1 und latest. Siehe https://hub.docker.com/r/trutzio/rolldice/tags
