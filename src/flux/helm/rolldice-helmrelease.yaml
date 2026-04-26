@@ -1,13 +1,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: mynginx
-  namespace: default
+  name: rolldice
 spec:
   interval: 10m
   chart:
     spec:
-      chart: charts/mynginx
+      chart: apps/rolldice/helm/rolldice
       sourceRef:
         kind: GitRepository
         name: github
