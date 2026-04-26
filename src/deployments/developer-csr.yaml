@@ -3,7 +3,7 @@ kind: CertificateSigningRequest
 metadata:
   name: [developer name]
 spec:
-  request: $(cat [developer name].csr | base64 | tr -d '\n')
+  request: # cat [developer name].csr | base64 | tr -d '\n'
   signerName: kubernetes.io/kube-apiserver-client
   usages:
   - client auth

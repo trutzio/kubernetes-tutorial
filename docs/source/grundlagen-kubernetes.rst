@@ -212,6 +212,24 @@ RBAC (Role-Based Access Control) ist ein Mechanismus, um den Zugriff auf Ressour
     $ vim developer-csr.yaml # hier den Namen des CSR und den Pfad zur CSR Datei anpassen
     $ kubectl apply -f developer-csr.yaml
     $ kubectl get csr
+    $ kubectl certificate approve [csr name]
+    $ kubectl get csr
+    $ kubectl get csr chris -o jsonpath='{.status}' | jq
+    $ kubectl get csr [csr name] -o jsonpath='{.status.certificate}' | base64 -d > [name des developers].crt
+    $ openssl x509 -noout -text -in [name des developers].crt
+    $ kubectl config get-contexts
+    $ kubectl config get-clusters
+    $ kubectl config get-users
+    $ kubectl config set-credentials [name des developers] --client-certificate=[name des developers].crt --client-key=[name des developers].key
+    $ kubectl config get-users
+    $ kubectl config set-context developer --cluster=default --user=[name des developers]
+    $ kubectl config use-context developer
+    $ kubectl get nodes # funktioniert nicht, da der Entwickler keinen Zugriff auf die Nodes hat
+    $ kubectl get pods # funktioniert nicht, da der Entwickler keinen Zugriff auf die Pods hat
+    $ kubectl get secrets # funktioniert nicht, da der Entwickler keinen Zugriff auf die Secrets hat
+    $ kubectl config use-context default
+    $ kubectl get secrets # funktioniert
+    $ kubectl apply -f developer-role.yaml
 
 Ingress
 -------
