@@ -24,11 +24,11 @@ Das rolldice Flux-HelmRelease
 
 Zuerst erstellen wir ein GitRepository-Manifest, das Flux mitteilt, wo es die Helm-Charts für die Rolldice-Anwendung finden kann. Dieses Manifest verweist auf das GitHub-Repository, in dem die Helm-Charts gespeichert sind, und gibt an, wie oft Flux nach Änderungen suchen soll.
 
-.. include:: ../../src/flux/github-gitrepository.yaml
+.. literalinclude:: ../../src/flux/github-gitrepository.yaml
 
 Das folgende HelmRelease-Manifest definiert das Deployment der Rolldice-Anwendung über Flux.
 
-.. include:: ../../src/flux/helm/rolldice-helmrelease.yaml
+.. literalinclude:: ../../src/flux/helm/rolldice-helmrelease.yaml
    
 .. code-block:: console
 
@@ -66,3 +66,9 @@ Erzeuge zunächst ein zufälliges Secret für den Webhook-Receiver:
    $ vim github-gitrepository.yaml # interval auf 12h setzen, da das Webhook die Änderungen an Git erkennt und Flux das Deployment aktualisiert
    $ kubectl apply -f github-gitrepository.yaml
    $ # Änderung in Git im Helm Chart vornehmen, z.B. die appVersion in Chart.yaml auf 1.0.4 erhöhen
+
+Trennung von Infrastruktur und Anwendung
+----------------------------------------
+
+Stages
+------
