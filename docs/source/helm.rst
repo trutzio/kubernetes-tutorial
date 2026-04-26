@@ -45,7 +45,7 @@ In Azure Key Vault wird ein Secret angelegt, welches in Kubernetes synchronisier
 MongoDB Installation
 ----------------------
 
-Es wird das MongoDB-Helm-Chart von Bitnami verwendet, um MongoDB in Kubernetes zu installieren. Siehe https://app-catalog.vmware.com/bitnami/releases/ce228c04-6bf7-425f-b4d0-7dfeba1aa3e4
+Es wird das MongoDB-Helm-Chart von Bitnami verwendet, um MongoDB in Kubernetes zu installieren. Siehe https://app-catalog.vmware.com/bitnami/apps
 
 .. code-block:: bash
 
