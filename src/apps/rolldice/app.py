@@ -19,6 +19,9 @@ def roll_dice():
         raise Exception("Sorry, you rolled a 6!") 
     return result
 
+@app.route("/")
+def healthz():
+    return "ok"
 
 def roll():
     return randint(1, 6)

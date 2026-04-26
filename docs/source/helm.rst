@@ -68,3 +68,21 @@ Es wird das MongoDB-Helm-Chart von Bitnami verwendet, um MongoDB in Kubernetes z
     $ exit
     $ helm ls
     $ helm uninstall [name_der_helm_release]
+
+Eigene Anwendung
+----------------
+
+.. literalinclude:: ../../src/apps/rolldice/app.py
+
+Eine minimale Webanwendung, die einen Würfelwurf simuliert. Die Anwendung wird als Docker-Image gebaut, siehe auch:
+
+.. literalinclude:: ../../src/apps/rolldice/Dockerfile
+
+.. code-block:: bash
+
+    $ cd ~/src/apps/rolldice/helm
+    $ helm template rolldice/
+    $ helm install rolldice/ --generate-name
+    $ helm ls
+    $ kubectl get all -l app.kubernetes.io/name=rolldice
+    $ kubectl logs -l app.kubernetes.io/name=rolldice # pod ist nicht erreichbar, da kein Liveliness und Readiness Probe definiert ist
