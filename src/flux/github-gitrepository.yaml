@@ -4,6 +4,7 @@ metadata:
   name: github
 spec:
   interval: 1m
+  # interval: 12h
   url: https://github.com/trutzio/kubernetes-tutorial.git
   ref:
     branch: main

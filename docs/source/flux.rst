@@ -59,4 +59,9 @@ Erzeuge zunächst ein zufälliges Secret für den Webhook-Receiver:
    $ kubectl -n flux-system get secrets
    $ kubectl apply -f webhook-receiver-ingress.yaml
    $ # webhook-receiver.trutz.cloud in DNS eintragen, damit die Ingress-Regel funktioniert
-   $ # webhook in GitHub eintragen https://github.com/trutzio/kubernetes-tutorial/settings/hooks
+   $ kubectl apply -f webhook-receiver.yaml
+   $ kubectl -n flux-system get receivers
+   $ kubectl -n flux-system describe receiver/webhook-receiver
+   $ # webhook in GitHub eintragen https://github.com/trutzio/kubernetes-tutorial/settings/hooks Achtung: Webhook Path: aus dem webhook-receiver.yaml nicht vergessen
+   $ vim github-gitrepository.yaml # interval auf 12h setzen, da das Webhook die Änderungen an Git erkennt und Flux das Deployment aktualisiert
+   $ kubectl apoply -f github-gitrepository.yaml
