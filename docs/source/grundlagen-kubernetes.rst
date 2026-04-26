@@ -230,6 +230,10 @@ RBAC (Role-Based Access Control) ist ein Mechanismus, um den Zugriff auf Ressour
     $ kubectl config use-context default
     $ kubectl get secrets # funktioniert
     $ kubectl apply -f developer-role.yaml
+    $ kubectl describe roles developer
+    $ vim developer-rolebinding.yaml # hier die Namen der Entwickler anpassen und mehrere Entwickler hinzufügen, wenn nötig
+    $ kubectl apply -f developer-rolebinding.yaml
+    $ kubectl describe rolebindings developer
 
 Ingress
 -------
