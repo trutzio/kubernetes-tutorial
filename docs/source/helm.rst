@@ -86,3 +86,11 @@ Eine minimale Webanwendung, die einen Würfelwurf simuliert. Die Anwendung wird 
     $ helm ls
     $ kubectl get all -l app.kubernetes.io/name=rolldice
     $ kubectl logs -l app.kubernetes.io/name=rolldice # pod ist nicht erreichbar, da kein Liveliness und Readiness Probe definiert ist
+    $ vim rolldice/Chart.yaml # appVersion von 1.0.0 auf 1.0.1 ändern, da Liveliness und Readiness Probe hinzugefügt wurden
+    $ helm ls
+    $ helm upgrade rolldice-[generierte id] rolldice/
+    $ kubectl get all -l app.kubernetes.io/name=rolldice
+    $ kubectl logs -f -l app.kubernetes.io/name=rolldice
+    $ # http://apps.trutz.cloud/rolldice im Browser öffnen, um die Anwendung zu testen
+    
+    
