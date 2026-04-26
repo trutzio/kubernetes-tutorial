@@ -6,9 +6,8 @@ spec:
   interval: 10m
   chart:
     spec:
-      chart: apps/rolldice/helm/rolldice
+      chart: src/apps/rolldice/helm/rolldice
       sourceRef:
         kind: GitRepository
         name: github
-        namespace: flux-system
       interval: 10m

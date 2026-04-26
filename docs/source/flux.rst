@@ -26,3 +26,9 @@ Das folgende HelmRelease-Manifest definiert das Deployment der Rolldice-Anwendun
 
 .. include:: ../../src/flux/helm/rolldice-helmrelease.yaml
    
+.. code-block:: console
+
+   $ cd src/flux
+   $ kubectl apply -f github-gitrepository.yaml
+   $ kubectl apply -f rolldice-helmrelease.yaml
+   $ 
