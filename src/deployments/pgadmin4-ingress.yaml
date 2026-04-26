@@ -5,7 +5,7 @@ metadata:
 spec:
   ingressClassName: traefik	
   rules:
-    - host: cluster.trutz.cloud
+    - host: pgadmin4.trutz.cloud
       http:
         paths:
           - path: /
