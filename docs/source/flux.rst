@@ -22,6 +22,10 @@ https://fluxcd.io/flux/installation/bootstrap/github/ enthält die Github PAT Be
 Das rolldice Flux-HelmRelease
 -----------------------------
 
+Zuerst erstellen wir ein GitRepository-Manifest, das Flux mitteilt, wo es die Helm-Charts für die Rolldice-Anwendung finden kann. Dieses Manifest verweist auf das GitHub-Repository, in dem die Helm-Charts gespeichert sind, und gibt an, wie oft Flux nach Änderungen suchen soll.
+
+.. include:: ../../src/flux/github-gitrepository.yaml
+
 Das folgende HelmRelease-Manifest definiert das Deployment der Rolldice-Anwendung über Flux.
 
 .. include:: ../../src/flux/helm/rolldice-helmrelease.yaml
@@ -30,5 +34,10 @@ Das folgende HelmRelease-Manifest definiert das Deployment der Rolldice-Anwendun
 
    $ cd src/flux
    $ kubectl apply -f github-gitrepository.yaml
+   $ flux get sources git -n default # oder
+   $ kubectl get gitrepositories
    $ kubectl apply -f rolldice-helmrelease.yaml
-   $ 
+   $ flux get helmreleases -n default # oder
+   $ kubectl get helmreleases
+   $ kubectl describe helmrelease/rolldice
+   $ kubectl get all-l app=rolldice
