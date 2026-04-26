@@ -19,6 +19,11 @@ spec:
         env:
         - name: POSTGRES_PASSWORD
           value: "secret"
+        #envFrom:
+        #- configMapRef:
+        #    name: postgres
+        #- secretRef:
+        #    name: postgres
         ports:
         - containerPort: 5432
         volumeMounts:

@@ -158,12 +158,31 @@ Nun können wir den PVC in unserem StatefulSet verwenden:
     $ psql -U postgres
     $ SELECT * FROM person;
 
+Zu einem PVC gehört immer ein Persistent Volume (PV), das den tatsächlichen Speicher repräsentiert. In unserem Fall wird der PV automatisch von Kubernetes erstellt, da wir einen StorageClass mit dem Namen `local-path` verwenden, der standardmäßig in k3s enthalten ist. Der PV wird auf dem Node erstellt, auf dem der Pod läuft, und der Speicher wird auf dem lokalen Dateisystem des Nodes bereitgestellt.
+
+.. code-block:: bash
+
+    $ kubectl get pv
+    $ kubectl describe pv [id pv]
+    $ kubectl get pv [id pv] -o json | jq .spec.local.path
+    $ ls -lah [path_aus_obigem_befehl]
+
 ConfigMaps und Secrets
 ----------------------
 
 ConfigMaps und Secrets sind Möglichkeiten, Konfigurationsdaten und sensible Daten in Kubernetes zu speichern. ConfigMaps werden für Konfigurationsdaten verwendet, Secrets für sensible Daten wie Passwörter oder API-Schlüssel verwendet werden. ConfigMaps und Secrets können in Pods als Umgebungsvariablen übergeben oder als Dateien gemountet werden.
 
-TODO: ConfigMaps und Secrets erklären anhand von `POSTGRES_PASSWORD`-Secret und `POSTGRES_USER`-ConfigMap, die in unserem Postgres StatefulSet verwendet werden.
+Für unser PostgreSQL-Deployment könnten wir zum Beispiel die Konfigurationsdaten wie den Benutzernamen, die Datenbank in einer ConfigMap:
+
+.. literalinclude:: ../../src/deployments/postgres-configmap.yaml
+
+und das Passwort in einem Secret speichern:
+
+.. literalinclude:: ../../src/deployments/postgres-secret.yaml
+
+.. important:: 
+
+   Es ist wichtig zu beachten, dass Secrets in Kubernetes nicht wirklich sicher sind, da sie Base64-kodiert und nicht verschlüsselt sind. In einer Produktionsumgebung sollten zusätzliche Sicherheitsmaßnahmen ergriffen werden, um Secrets zu schützen, wie zum Beispiel 
 
 Ingress
 -------
@@ -172,10 +191,34 @@ Ingress ist eine Möglichkeit, HTTP- und HTTPS-Verkehr zu einem Service in Kuber
 
 .. literalinclude:: ../../src/deployments/pgadmin4-ingress.yaml
 
+Die Ingress-Ressource definiert, dass Anfragen an `http://pgadmin4.trutz.cloud/` an den Service `pgadmin4` weitergeleitet werden sollen.
+
+Ingress alleine reicht nicht aus, um den Verkehr zu routen. Es wird ein Ingress-Controller benötigt, der die Ingress-Ressourcen überwacht und die entsprechenden Regeln konfiguriert. In unserem Fall verwenden wir den Traefik-Ingress-Controller, der standardmäßig in k3s enthalten ist.
+
+.. notice:: 
+    Es wird natürlich vorausgesetzt, dass die DNS-Einträge für `pgadmin4.trutz.cloud` auf die IP-Adresse des Control-Planes zeigen, damit die Anfragen an den Ingress-Controller weitergeleitet werden können.
+
 .. code-block:: bash
 
     $ kubectl apply -f pgadmin4-ingress.yaml
     $ kubectl get ingress
     $ kubectl describe ingress/pgadmin4
-    $ curl http://cluster.trutz.cloud/pgadmin4  # und im Browser aufrufen
+    $ http://pgadmin4.trutz.cloud/  # im Browser aufrufen
+
+.. tip:: 
+
+    Der Einstiegspunkt von aussen in das Cluster ist der Ingress-Controller, dessen Aufgabe ist den Verkehr zu den Services im Cluster zu routen. Das Mapping URL zu Service wird typischerweise auf Domain-Ebene gemacht, also zum Beispiel http://pgadmin4.trutz.cloud/ zum Service `pgadmin4`, aber es ist auch möglich, das Routing auf Context-Pfad-Ebene zu machen, zum Beispiel http://trutz.cloud/pgadmin4/ zum Service `pgadmin4`, aber hier ist zu beachten, dass die Applikation dann so konfiguriert sein muss, dass sie den obigen Context-Pfad unterstützt.
+
+Kubernetes Controller und CRDs
+------------------------------
+
+Kubernetes Controller sind Prozesse, die den aktuellen Zustand des Clusters überwachen und sicherstellen, dass er dem gewünschten Zustand entspricht. Sie reagieren auf Änderungen im Cluster und führen die notwendigen Aktionen aus, um den gewünschten Zustand zu erreichen. Custom Resource Definitions (CRDs) ermöglichen es, benutzerdefinierte Ressourcen in Kubernetes zu erstellen, die von Controllern verwaltet und überwacht werden können.
+
+.. code-block:: bash
+
+    $ kubectl get crds
+    $ kubectl describe crd [name_der_crd]
+    $ kubectl api-resources
+
+
     
