@@ -13,4 +13,3 @@ docker buildx build -t trutzio/rolldice:$APP_VERSION .
 docker login -u trutzio
 docker push trutzio/rolldice:$APP_VERSION
 ```
-
