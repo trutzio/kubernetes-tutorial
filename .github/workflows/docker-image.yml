@@ -2,6 +2,8 @@ name: Docker Image CI
 
 on:
   push:
+    tags:
+      - 'v*.*.*' # siehe auch https://semver.org/
     branches:
       - 'main'
     paths:
@@ -26,6 +28,7 @@ jobs:
         tags: |
           type=schedule,pattern={{date 'YYYYMMDD-HHmms' tz='Europe/Berlin'}}
           type=semver,pattern={{version}}
+          type=semver,pattern={{major}}.{{minor}}.{{patch}}
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
           type=sha
