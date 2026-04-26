@@ -165,8 +165,17 @@ ConfigMaps und Secrets sind Möglichkeiten, Konfigurationsdaten und sensible Dat
 
 TODO: ConfigMaps und Secrets erklären anhand von `POSTGRES_PASSWORD`-Secret und `POSTGRES_USER`-ConfigMap, die in unserem Postgres StatefulSet verwendet werden.
 
-Gateways
---------
+Ingress
+-------
 
-TODO: Gateways erklären 
+Ingress ist eine Möglichkeit, HTTP- und HTTPS-Verkehr zu einem Service in Kubernetes zu routen. Es ermöglicht es, mehrere Services unter derselben IP-Adresse und demselben Port zu exponieren.
+
+.. literalinclude:: ../../src/deployments/pgadmin4-ingress.yaml
+
+.. code-block:: bash
+
+    $ kubectl apply -f pgadmin4-ingress.yaml
+    $ kubectl get ingress
+    $ kubectl describe ingress/pgadmin4
+    $ curl http://cluster.trutz.cloud/pgadmin4  # und im Browser aufrufen
     
