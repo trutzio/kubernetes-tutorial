@@ -4,10 +4,10 @@ on:
   push:
     tags:
       - 'v*.*.*' # siehe auch https://semver.org/
-    branches:
-      - 'main'
-    paths:
-      - 'src/apps/rolldice/**'
+    #branches:
+    #  - 'main'
+    #paths:
+    #  - 'src/apps/rolldice/**'
 
 jobs:
   build:
@@ -26,12 +26,9 @@ jobs:
           trutzio/rolldice
         # generate Docker tags based on the following events/attributes
         tags: |
-          type=schedule,pattern={{date 'YYYYMMDD-HHmms' tz='Europe/Berlin'}}
           type=semver,pattern={{version}}
-          type=semver,pattern={{major}}.{{minor}}.{{patch}}
           type=semver,pattern={{major}}.{{minor}}
           type=semver,pattern={{major}}
-          type=sha
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v4

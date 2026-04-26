@@ -93,4 +93,17 @@ Eine minimale Webanwendung, die einen Würfelwurf simuliert. Die Anwendung wird 
     $ kubectl logs -f -l app.kubernetes.io/name=rolldice
     $ # http://apps.trutz.cloud/rolldice im Browser öffnen, um die Anwendung zu testen
     
-    
+Pipelines mit GitHub Actions
+----------------------------
+
+In GitHub Actions wird eine Pipeline definiert, die die Anwendung baut, das Docker-Image in Docker Hub pusht.
+
+.. literalinclude:: ../../.github/workflows/docker-image.yml
+
+.. code-block:: bash
+
+    $ # In GitHub Repository Settings -> Secrets -> Actions die folgenden Secrets anlegen:
+    $ # DOCKER_USERNAME: trutzio
+    $ # DOCKER_PASSWORD: [docker_pat]
+    $ git tag v1.0.0
+    $ git push origin v1.0.0

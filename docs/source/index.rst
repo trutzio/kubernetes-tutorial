@@ -19,5 +19,4 @@ Inhalt
    grundlagen-kubernetes
    helm
    flux
-   pipelines
    monitoring
