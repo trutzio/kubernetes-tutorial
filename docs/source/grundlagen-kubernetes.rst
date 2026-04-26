@@ -180,9 +180,38 @@ und das Passwort in einem Secret speichern:
 
 .. literalinclude:: ../../src/deployments/postgres-secret.yaml
 
+.. code-block:: bash
+
+    $ kubectl apply -f postgres-configmap.yaml
+    $ kubectl apply -f postgres-secret.yaml
+    $ kubectl get configmaps
+    $ kubectl get secret postgres -o json | jq .data
+    $ kubectl get secret postgres -o json | jq .data.POSTGRES_PASSWORD | tr -d "\"" | base64 -d
+    $ vim postgres-statefulset-with-pvc.yaml # hier die ConfigMap und das Secret in das StatefulSet einbinden
+    $ kubectl apply -f postgres-statefulset-with-pvc.yaml
+    $ kubectl describe statefulset/postgres
+    $ kubectl describe pod/postgres-0
+    $ kubectl exec pod/postgres-0 -it -- bash
+    $ env
+    $ env | grep POSTGRES_PASSWORD
+
 .. important:: 
 
-   Es ist wichtig zu beachten, dass Secrets in Kubernetes nicht wirklich sicher sind, da sie Base64-kodiert und nicht verschlüsselt sind. In einer Produktionsumgebung sollten zusätzliche Sicherheitsmaßnahmen ergriffen werden, um Secrets zu schützen, wie zum Beispiel 
+   Es ist wichtig zu beachten, dass Secrets in Kubernetes nicht wirklich sicher sind, da sie Base64-kodiert und nicht verschlüsselt sind. In einer Produktionsumgebung sollten zusätzliche Sicherheitsmaßnahmen ergriffen werden, um Secrets zu schützen, wie zum Beispiel Rollenbasierte Zugriffskontrolle (RBAC) und die Verwendung von externen Secret-Management-Lösungen.
+
+RBAC
+----
+
+RBAC (Role-Based Access Control) ist ein Mechanismus, um den Zugriff auf Ressourcen in Kubernetes zu steuern. Es ermöglicht es, Rollen zu definieren, die bestimmte Berechtigungen haben, und diese Rollen dann Benutzern oder Service Accounts zuzuweisen.
+
+.. code-block:: bash
+
+    $ kubectl get roles
+    $ kubectl get rolebindings
+    $ openssl req -new -key chris.key -out chris.csr -subj "/CN=chris/O=developers"
+    $ vim developer-csr.yaml # hier den Namen des CSR und den Pfad zur CSR Datei anpassen
+    $ kubectl apply -f developer-csr.yaml
+    $ kubectl get csr
 
 Ingress
 -------
