@@ -13,3 +13,10 @@ docker buildx build -t trutzio/rolldice:$APP_VERSION .
 docker login -u trutzio
 docker push trutzio/rolldice:$APP_VERSION
 ```
+
+## Open Telemetry
+
+```
+opentelemetry-bootstrap -a install
+opentelemetry-instrument --traces_exporter otlp --metrics_exporter otlp --logs_exporter otlp --service_name dice-server flask run -p 8080
+```

@@ -1,0 +1,42 @@
+services:
+  loki:
+    image: grafana/loki
+    command: -config.file=/etc/loki/local-config.yaml
+  jaeger:
+    image: jaegertracing/jaeger
+  prometheus:
+    image: prom/prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --web.enable-remote-write-receiver
+      - --enable-feature=exemplar-storage
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - otel-collector
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib
+    ports:    
+      - 4317:4317 # OTLP gRPC receiver
+      - 4318:4318 # OTLP http receiver
+    volumes:
+      - ./otel-collector/config.yaml:/etc/otelcol-contrib/config.yaml
+    depends_on:      
+      - jaeger
+      - loki
+  grafana:
+    image: grafana/grafana-enterprise
+    environment:
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+      - GF_FEATURE_TOGGLES_ENABLE=alertingSimplifiedRouting,alertingQueryAndExpressionsStepMode
+    ports:
+      - 3000:3000
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+      - jaeger
+      - loki
+      
+    
