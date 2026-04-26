@@ -2,9 +2,10 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - 'main'
     paths:
-      - "src/apps/rolldice/"
+      - 'src/apps/rolldice/**'
 
 jobs:
   build:
