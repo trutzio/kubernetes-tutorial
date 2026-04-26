@@ -59,4 +59,4 @@ Erzeuge zunächst ein zufälliges Secret für den Webhook-Receiver:
    $ kubectl -n flux-system get secrets
    $ kubectl apply -f webhook-receiver-ingress.yaml
    $ # webhook-receiver.trutz.cloud in DNS eintragen, damit die Ingress-Regel funktioniert
-   
+   $ # webhook in GitHub eintragen https://github.com/trutzio/kubernetes-tutorial/settings/hooks
