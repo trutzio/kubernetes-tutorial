@@ -92,6 +92,22 @@ Eine minimale Webanwendung, die einen Würfelwurf simuliert. Die Anwendung wird 
     $ kubectl get all -l app.kubernetes.io/name=rolldice
     $ kubectl logs -f -l app.kubernetes.io/name=rolldice
     $ # http://apps.trutz.cloud/rolldice im Browser öffnen, um die Anwendung zu testen
+    $ helm ls
+    $ helm upgrade rolldice-[generierte id] rolldice/ --set image.tag=1.0.4
+    $ helm ls
+    $ kubectl get all -l app.kubernetes.io/name=rolldice
+    $ kubectl get pod/rolldice-[id] -o yaml | yq .spec.containers[].image
+    $ helm uninstall rolldice-[generierte id]
+
+
+Mit folgenden Befehlen kann ein Helm-Chart-Package erstellt werden, welches in einem Helm-Repository gehostet werden kann:
+
+.. code-block:: bash
+
+    $ docker login # mit einem PAT mit Schreibrechten
+    $ helm package rolldice/ # hier wird ein Helm-Chart-Package erstellt, welches in einem Helm-Repository gehostet werden kann
+    $ helm push rolldice-0.1.0.tgz  oci://registry-1.docker.io/trutzio
+    
     
 Pipelines mit GitHub Actions
 ----------------------------
