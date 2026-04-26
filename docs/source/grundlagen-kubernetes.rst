@@ -234,6 +234,12 @@ RBAC (Role-Based Access Control) ist ein Mechanismus, um den Zugriff auf Ressour
     $ vim developer-rolebinding.yaml # hier die Namen der Entwickler anpassen und mehrere Entwickler hinzufügen, wenn nötig
     $ kubectl apply -f developer-rolebinding.yaml
     $ kubectl describe rolebindings developer
+    $ kubectl config use-context developer
+    $ kubectl get pods # funktioniert, da der Entwickler nun Zugriff auf die Pods hat
+    $ kubectl get secrets # funktioniert nicht, da der Entwickler keinen Zugriff auf die Secrets hat
+    $ kubectl exec pod/postgres-0 -- env | grep POSTGRES_PASSWORD # funktioniert nicht, da der Entwickler keinen exec-Zugriff auf die Pods hat
+    $ kubectl config use-context default
+    $ kubectl exec pod/postgres-0 -- env | grep POSTGRES_PASSWORD # funktioniert, da der default=Admin user Zugriff auf die Pods hat
 
 Ingress
 -------
