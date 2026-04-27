@@ -70,5 +70,49 @@ Erzeuge zunächst ein zufälliges Secret für den Webhook-Receiver:
 Trennung von Infrastruktur und Anwendung
 ----------------------------------------
 
-Stages
-------
+In diesem Tutorial wurde die Infrastruktur der Anwendung (Helm-Skript) und die Anwendung selbst im selber Git-Repository gespeichert. In der Praxis ist es jedoch üblich, die Infrastruktur und die Anwendung in getrennten Git-Repositories zu speichern. Dies ermöglicht eine bessere Trennung von Verantwortlichkeiten und erleichtert die Verwaltung der Infrastruktur und der Anwendung.
+
+Eine mögliche Struktur könnte wie folgt in einem einzigen Git-Repository aussehen:
+
+.. code-block:: console
+
+   ├── develop
+   │   ├── integration (Entwicklungsumgebung)
+   │   │   ├── app1    (Helm Chart für App1)
+   │   │   ├── app2
+   │   │   └── app3
+   │   ├── testing     (Testumgebung für Tester)
+   │   │   ├── app1
+   │   │   ├── app2
+   │   │   └── app3
+   │   └── maintenance (Wartungsumgebung, Kopie der Produktionsumgebung)
+   │       ├── app1
+   │       ├── app2
+   │       └── app3
+   ├── uat             (User Acceptance Testing, Abnahmeumgebung)
+   │    └─ default
+   │       ├── app1
+   │       ├── app2
+   │       └── app3
+   └── production      (Heilige Produktionsumgebung)
+       └── default
+           ├── app1
+           ├── app2
+           └── app3
+
+In diesem Beispiel könnten `develop`, `uat` und `production` jeweils ein eigener Kubernetes-Cluster sein. Die Trennung zwischen `integration`, `testing` und `maintenance` innerhalb des develop-Clusters könnte auf Namespace-Ebene erfolgen, um verschiedene Umgebungen innerhalb desselben Clusters zu haben.
+
+Das Ziel sollte sein, die Infrastruktur (Helm-Charts) auf allen Ebene gleich aussehen zu lassen (gleiche Helm Templates), die Unterschiede zwischen den Umgebungen sollten nur in den Werten (values.yaml) liegen, damit die Wartung der Infrastruktur einfacher wird. Man kann dann mit Git-Mitteln wie Branches, Pull Requests und Merge-Strategien arbeiten, um Änderungen an der Infrastruktur zu verwalten und sicherzustellen, dass sie ordnungsgemäß getestet und genehmigt werden, bevor sie in die Produktionsumgebung gelangen.
+
+Beispiel: `app1` wird auf der `develop/integration`-Umgebung entwickelt und auf Git-Push-basis in diese Umgebung via Pipelines deployed. Am Ende eines Sprints wird die `app1`-Anwendung in die `develop/testing`-Umgebung überführt und von den Testern getestet. Nach erfolgreichem Testen wird die `app1`-Anwendung in die `uat/default`-Umgebung überführt auf der sie die Abnahme erfolgt, z.B. durch das Testen des Product Owners oder durch die Enduser. Nach erfolgreicher Abnahme wird die `app1`-Anwendung in die `production/default`-Umgebung überführt und ist für die Enduser verfügbar. Gleichzeitig wird die `app1`-Anwendung in der `develop/maintenance`-Umgebung bereitgestellt, damit die Entwickler eine Wartungsumgebung haben für Hotfixes auf der Produktion.
+
+Git Branches
+------------
+
+Die Git-Branches der Anwendung (nicht der Infrastruktur) könnten wie folgt aussehen:
+
+#. Branch `develop` entspricht der `develop/integration`-Umgebung, hier wird die Anwendung entwickelt und auf Git-Push-Basis in die `develop/integration`-Umgebung deployed
+#. Branch `release/v1.4` entspricht der `develop/testing`-Umgebung, hier werden die Änderungen von den Testern getestet
+#. Tag `v1.4.4` entspricht der `uat/default`-Umgebung, hier erfolgt die Abnahme durch den Product Owner oder die Enduser
+#. Tag `v1.4.4` und `main`-Branch entsprechen der `production/default`-Umgebung, hier ist die Anwendung deployed nach erfolgreicher Abnahme
+#. Branch `hotfix/v1.4.5` entspricht der `develop/maintenance`-Umgebung, hier werden Hotfixes auf der Produktion entwickelt, dieser Branch wird aus dem `main`-Branch abgezweigt

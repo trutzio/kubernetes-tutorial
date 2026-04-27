@@ -6,8 +6,8 @@ project = 'Kubernetes Tutorial'
 copyright = '2026, Trutz Software Consulting GmbH'
 author = 'Christian Trutz'
 
-release = '0.1'
-version = '0.1.0'
+release = '1.0'
+version = '1.0.5'
 
 # -- General configuration
 
