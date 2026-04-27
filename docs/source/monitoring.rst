@@ -10,6 +10,11 @@ Open Telemetry (OTEL) ist ein Open-Source-Projekt, das eine Sammlung von Tools, 
 #. OTEL-Metriken `Prometheus <https://prometheus.io/>`_ und `Grafana Mimir <https://grafana.com/oss/mimir/>`_ für
 #. OTEL-Logs `Loki <https://grafana.com/oss/loki/>`_ 
 
+Die typische Architektur von OTEL Umgebungen sieht wie folgt aus:
+
+.. image:: img/otel-architektur.svg
+   :alt: OTEL Architecture
+
 Grafana mit Docker Compose
 --------------------------
 
